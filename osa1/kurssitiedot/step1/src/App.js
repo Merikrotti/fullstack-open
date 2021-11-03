@@ -1,57 +1,48 @@
 import React from 'react'
 
 const App = () => {
-  const course = {
-    name: 'Half Stack application development',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7
-      },
-      {
-        name: 'State of a component',
-        exercises: 14
-      }
-    ]
-  }
+  const course = 'Half Stack application development'
+  const part1 = 'Fundamentals of React'
+  const exercises1 = 10
+  const part2 = 'Using props to pass data'
+  const exercises2 = 7
+  const part3 = 'State of a component'
+  const exercises3 = 14
 
   return (
     <div>
-      <Header course={course.name} />
-      <Content parts={course.parts} />
-      <Total parts={course.parts} />
+      <Header course={course}/>
+      <Content contents={[[part1, exercises1],
+                          [part2, exercises2],
+                          [part3, exercises3]]}/>
+      <Total exercises={[exercises1, exercises2, exercises3]}/>
     </div>
   )
 }
 
-const Content = (props) => {
+const Header = (props) => {
+  return (<h1>{props.course}</h1>)
+}
+
+const Total = (props) => {
   return (
-    <div>
-      {props.parts.map((part, i) => {
-        return <Part key={part.name} name={part.name} exercises={part.exercises} /> 
-      })}
+    <p>Number of exercises {props.exercises[0] + props.exercises[1] + props.exercises[2]}</p>
+  )
+}
+
+const Content = (props) => {
+  return(<div>
+    {props.contents.map((item, index) => {
+      return (<Part key={item} part={item[0]} exercise={item[1]} />)
+    })}
     </div>
   )
 }
 
 const Part = (props) => {
-  return (<div>
-    <p>Name: {props.name}</p>
-    <p>Exercises: {props.exercises}</p>
-  </div>
+  return(
+    <p>{props.part} {props.exercise}</p>
   )
-}
-
-const Total = (props) => {
-  return <p> Total: {props.parts.length}</p>
-}
-
-const Header = (props) => {
-  return <h1>{props.course}</h1>
 }
 
 export default App
